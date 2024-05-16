@@ -1,0 +1,31 @@
+#pragma once
+
+class SystemHooks {
+public:
+	static HRESULT Initialize();
+	static void NetDll_XnpSetChallengeResponseHook(XNCALLER_TYPE xnc, DWORD r4, XOSCResponse* respBuff, DWORD respSize);
+	static int SystemHooks::XexLoadImageFromMemoryHook(VOID* Image, int ImageSize, const CHAR* ImageName, int LoadFlags, int Version, HMODULE* ModuleHandle);
+	static int XexGetProcedureAddressHook(HANDLE hand, DWORD dwOrdinal, PVOID* pvAddress);
+	static bool XexCheckExecutablePrivilegeHook(int priviledge);
+	static HRESULT XexStartExecutableHook(FARPROC TitleProcessInitThreadProc);
+	static void XSecurityCloseProcessHook();
+	static void APCWorker(void* Arg1, void* Arg2, void* Arg3);
+	static int XSecurityCreateProcessHook(int dwHardwareThread);
+	static int XSecurityVerifyHook(DWORD dwMilliseconds, LPOVERLAPPED lpOverlapped, LPOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+	static int XSecurityGetFailureInfoHook(PXSECURITY_FAILURE_INFORMATION pFailureInformation);
+	static void* RtlImageXexHeaderFieldHook(void* headerBase, DWORD imageKey);
+	static long long XeKeysExecuteHook(XE_KEYS_BUFFER* buffer, int fileSize, byte* salt, long long input2, long long input3, long long input4);
+	static void XNotifyQueueUIHook(DWORD dwType, DWORD dwUserIndex, DWORD dwPriority, LPCWSTR pwszStringParam, ULONGLONG qwParam);
+	static void* XexPcToFileHeaderHook(DWORD pAddress, PLDR_DATA_TABLE_ENTRY* ldatOut);
+};
+
+static byte FusesHashes[7][0x10] =
+{
+	{ 0xC0, 0xDC, 0xFE, 0xF3, 0xD7, 0x3E, 0xED, 0x7E, 0x5A, 0xF8, 0xB1, 0xBB, 0xB2, 0xE0, 0x26, 0x95 }, // Xenon
+	{ 0x96, 0x23, 0x74, 0x9C, 0x9E, 0xC5, 0x2B, 0x30, 0xC6, 0x68, 0x05, 0x9E, 0xAD, 0x9C, 0x12, 0xA8 }, // Zephyr
+	{ 0x82, 0xC1, 0xF0, 0x00, 0x9E, 0x79, 0x97, 0xF3, 0x34, 0x0E, 0x01, 0x45, 0x1A, 0xD0, 0x32, 0x57 }, // Falcon
+	{ 0x3A, 0x5B, 0x47, 0xD6, 0xDD, 0x5A, 0xF8, 0x66, 0x93, 0xED, 0x05, 0x47, 0x25, 0x66, 0x15, 0x69 }, // Jasper
+	{ 0xDB, 0xE6, 0x35, 0x87, 0x78, 0xCB, 0xFC, 0x2F, 0x52, 0xA3, 0xBA, 0xF8, 0x92, 0x45, 0x8D, 0x65 }, // Trinity
+	{ 0xD1, 0x32, 0xFB, 0x43, 0x9B, 0x48, 0x47, 0xE3, 0x9F, 0xE5, 0x46, 0x46, 0xF0, 0xA9, 0x9E, 0xB1 }, // Corona
+	{ 0xD1, 0x32, 0xFB, 0x43, 0x9B, 0x48, 0x47, 0xE3, 0x9F, 0xE5, 0x46, 0x46, 0xF0, 0xA9, 0x9E, 0xB1 }  // Winchester
+};
