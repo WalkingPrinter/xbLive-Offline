@@ -24,8 +24,13 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
-Release_LTCG/
-Release Retail/
+!/Build/Release/
+
+*.dll
+*.out
+*.map
+*.exe
+*.old
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -334,9 +339,5 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
-xkelib/xamext.lib
-xkelib/kernelext.lib
-xkelib/xamext.exp
-xkelib/kernelext.exp
-Stealth/Stealth.vcxproj
-xkelib/xkelib.vcxproj
+/Dependencies/BlackBone/BlackBone/out/build/x64-Debug (default)
+/Dependencies/BlackBone/BlackBone/out/build/x64-Debug
